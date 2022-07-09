@@ -1,0 +1,22 @@
+{
+  "name": "pipedrive_task",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "express": "^4.18.1",
+    "flatted": "^3.2.6",
+    "node-fetch": "^3.2.6",
+    "pipedrive": "^15.0.1"
+  },
+  "devDependencies": {
+    "jest": "^28.1.2"
+  }
+}
