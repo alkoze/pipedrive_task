@@ -56,15 +56,33 @@ module.exports = class Service {
   async postDeals(userName) {
     try {
       var gists = await this.filterDeals(userName);
-      if (gists != null && gists.length > 0){
+      if (gists != null){
           gists.forEach(async element =>
               {await api.addDeal(new Deal(element))});
           console.log(gists);
-      }
-      else console.log("Zero new gists found.");
+          return gists;
+      } else return null;
     } catch (error) {
       console.log(error);
     }
+  }
+
+  async addUser(userName) {
+    var users = await this.readUsers();
+    for (var i = 0; i < users.length ; i++) {
+      if (users[i] == userName){
+        return `User ${userName} already in list.`
+      }
+    }
+    await fsPromises.appendFile(userFile, `${userName}\n`);
+    return `User ${userName} added.`
+  }
+
+  async deleteUser(userName) {
+    var data = await fsPromises.readFile(userFile, 'utf-8');
+    var updatedData = data.replace(`${userName}\n`, '')
+    await fsPromises.writeFile(userFile, updatedData);
+    return `${userName} deleted.`
   }
 
   async readUsers() {
