@@ -22,10 +22,14 @@ app.get('/deals/:userName', async (req, res) => {
   }
 });
 
+app.get('/', (req, res) => {
+  res.send('Hello');
+});
+
 setInterval(async function(){
   console.log(`Check new gists for user ${userName}.`)
   service.postDeals(userName)
-}, 10000)
+}, 3600000)
 
 const port = process.env.PORT || 3000;
 const userName = 'alkoze'
