@@ -22,16 +22,23 @@ app.get('/deals/:userName', async (req, res) => {
   }
 });
 
-app.get('/', (req, res) => {
+app.get('/',  (req, res) => {
   res.send('Hello');
 });
 
+app.get('/users', async (req, res) => {
+  users = await service.readUsers()
+   res.send('Gists are being checked for users: ' + users);
+});
+
 setInterval(async function(){
-  console.log(`Check new gists for user ${userName}.`)
-  service.postDeals(userName)
-}, 3600000)
+  users = await service.readUsers();
+  users.forEach(async username => {
+    console.log(`Check new gists for user ${username}.`);
+    await service.postDeals(username);
+  });
+}, 100000)
 
 const port = process.env.PORT || 3000;
-const userName = 'alkoze'
 
 app.listen(port, () => console.log(`Listening on port ${port}.`))

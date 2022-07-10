@@ -1,6 +1,7 @@
 const Deal = require('./DTO/deal');
 const pipedrive = require('pipedrive');
 const Axios = require('axios');
+const {readFileSync, promises: fsPromises} = require('fs');
 
 const defaultClient = pipedrive.ApiClient.instance;
 
@@ -11,6 +12,7 @@ const api = new pipedrive.DealsApi();
 
 const gitHubUrl = 'https://api.github.com'
 
+const userFile = './users.txt';
 
 const axios = Axios.create(
   {
@@ -63,5 +65,11 @@ module.exports = class Service {
     } catch (error) {
       console.log(error);
     }
+  }
+
+  async readUsers() {
+    const users = await fsPromises.readFile(userFile, 'utf-8');
+    const arr = users.split(/\r?\n/);
+    return arr;
   }
 }
