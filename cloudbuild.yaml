@@ -1,5 +1,4 @@
 steps:
-  - run: npm test
 # Docker Build Image
   - name: gcr.io/cloud-builders/docker
     id  : BUILD
